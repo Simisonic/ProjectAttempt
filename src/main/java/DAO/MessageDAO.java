@@ -2,7 +2,6 @@ package DAO;
 
 import Model.Message;
 import Util.ConnectionUtil;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -12,6 +11,7 @@ import java.util.List;
 
 public class MessageDAO {
 
+    // Saves a new message to the database
     public Message save(Message message) {
         String sql = "INSERT INTO Message (posted_by, message_text, time_posted_epoch) VALUES (?, ?, ?)";
         try (Connection conn = ConnectionUtil.getConnection();
@@ -23,7 +23,7 @@ public class MessageDAO {
 
             ResultSet rs = ps.getGeneratedKeys();
             if (rs.next()) {
-                message.setMessage_id(rs.getInt(1));
+                message.setMessage_id(rs.getInt(1)); // Set the generated message ID
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -33,6 +33,7 @@ public class MessageDAO {
         return message;
     }
 
+    // Retrieves all messages from the database
     public List<Message> findAll() {
         List<Message> messages = new ArrayList<>();
         String sql = "SELECT * FROM Message";
@@ -49,6 +50,7 @@ public class MessageDAO {
         return messages;
     }
 
+    // Retrieves a message by ID
     public Message findById(int messageId) {
         String sql = "SELECT * FROM Message WHERE message_id = ?";
         try (Connection conn = ConnectionUtil.getConnection();
@@ -65,6 +67,7 @@ public class MessageDAO {
         return null;
     }
 
+    // Deletes a message by ID
     public void delete(int messageId) {
         String sql = "DELETE FROM Message WHERE message_id = ?";
         try (Connection conn = ConnectionUtil.getConnection();
@@ -77,6 +80,7 @@ public class MessageDAO {
         }
     }
 
+    // Updates a message by ID
     public void update(int messageId, String messageText) {
         String sql = "UPDATE Message SET message_text = ? WHERE message_id = ?";
         try (Connection conn = ConnectionUtil.getConnection();
@@ -90,6 +94,7 @@ public class MessageDAO {
         }
     }
 
+    // Retrieves messages by user ID
     public List<Message> findAllByPostedBy(int accountId) {
         List<Message> messages = new ArrayList<>();
         String sql = "SELECT * FROM Message WHERE posted_by = ?";

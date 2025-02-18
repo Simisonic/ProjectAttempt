@@ -10,6 +10,7 @@ import java.sql.SQLException;
 
 public class AccountDAO {
 
+    // Saves a new account to the database
     public Account save(Account account) {
         String sql = "INSERT INTO Account (username, password) VALUES (?, ?)";
         try (Connection conn = ConnectionUtil.getConnection();
@@ -20,7 +21,7 @@ public class AccountDAO {
 
             ResultSet rs = ps.getGeneratedKeys();
             if (rs.next()) {
-                account.setAccount_id(rs.getInt(1));
+                account.setAccount_id(rs.getInt(1)); // Set the generated account ID
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -30,6 +31,7 @@ public class AccountDAO {
         return account;
     }
 
+    // Finds an account by username
     public Account findByUsername(String username) {
         String sql = "SELECT * FROM Account WHERE username = ?";
         try (Connection conn = ConnectionUtil.getConnection();
@@ -45,6 +47,7 @@ public class AccountDAO {
         return null;
     }
 
+    // Checks if an account exists by ID
     public boolean existsById(int accountId) {
         String sql = "SELECT COUNT(*) FROM Account WHERE account_id = ?";
         try (Connection conn = ConnectionUtil.getConnection();

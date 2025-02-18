@@ -7,8 +7,11 @@ import io.javalin.Javalin;
  */
 public class Main {
     public static void main(String[] args) {
+        // Create an instance of the SocialMediaController
         SocialMediaController controller = new SocialMediaController();
+        // Start the Javalin app using the SocialMediaController
         Javalin app = controller.startAPI();
+        // Start the Javalin app on port 8080
         app.start(8080);
     }
 }

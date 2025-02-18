@@ -7,6 +7,7 @@ public class AccountService {
 
     private AccountDAO accountDAO = new AccountDAO();
 
+    // Registers a new account
     public Account register(Account account) {
         if (account.getUsername().isBlank() || account.getPassword().length() < 4) {
             throw new IllegalArgumentException("Invalid account details");
@@ -17,6 +18,7 @@ public class AccountService {
         return accountDAO.save(account);
     }
 
+    // Logs in an existing account
     public Account login(String username, String password) {
         Account account = accountDAO.findByUsername(username);
         if (account == null || !account.getPassword().equals(password)) {
@@ -25,6 +27,7 @@ public class AccountService {
         return account;
     }
 
+    // Checks if a user exists by ID
     public boolean userExists(int userId) {
         return accountDAO.existsById(userId);
     }
