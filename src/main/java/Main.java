@@ -13,5 +13,6 @@ public class Main {
         Javalin app = controller.startAPI();
         // Start the Javalin app on port 8080
         app.start(8080);
+        System.out.println("Server has started on port 8080.");
     }
 }
